@@ -1,0 +1,73 @@
+﻿@using MVC5OnlineTicariOtomasyon.Models.Siniflar
+@model List<Urun>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+<br />
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"></link>
+<link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css"></link>
+
+@using (Html.BeginForm("Index", "Urun", FormMethod.Get))
+{
+    <p>
+        Ürün Adı: @Html.TextBox("p")
+        <input type="submit" value="Ara" />
+    </p>
+}
+<br />
+<table id="test" class="table table-bordered">
+    <tr>
+        <th>ÜRÜN</th>
+        <th>MARKA</th>
+        <th>STOK</th>
+        <th>ALIŞ FİYAT</th>
+        <th>SATIŞ FİYAT</th>
+        <th>KATEGORİ</th>
+        <th>SİL</th>
+        <th>GÜNCELLE</th>
+        <th>SATIŞ YAP</th>
+    </tr>
+    @foreach (var u in Model)
+    {
+        <tr>
+
+            <td>@u.UrunAd</td>
+            <td>@u.Marka</td>
+            <td>@u.Stok</td>
+            <td>@u.AlisFiyati ₺</td>
+            <td>@u.SatisFiyati ₺</td>
+            <td>@u.Kategori.KategoriAd</td>
+
+            <td>
+                <a href="/Urun/UrunSil/@u.Urunid" class="btn btn-danger">Sil</a>
+            </td>
+            <td>
+                <a href="/Urun/UrunGetir/@u.Urunid" class="btn btn-success">Güncelle</a>
+            </td>
+            <td>
+                <a href="/Urun/SatisYap/@u.Urunid" class="btn btn-danger" style="background-color:darkred">Satış Yap</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<a href="/Urun/YeniUrun/" class="btn btn-info">Yeni Ürün</a>
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+
+
+
+@*https://code.jquery.com/jquery-3.7.0.js
+    https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js
+    https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js*@
+
+<script>
+    $(document).ready(function () {
+        new DataTable('#test');
+    });
+</script>
